@@ -1,4 +1,4 @@
-- 👋 Hi, I’m @russanomarco and @anconaguido
+- 👋 Hi, We're @russanomarco and @anconaguido
 
 You can use this instruction for use a Raspberry Pi 4 (Model B) to use it in mode "KIOSK"
 
