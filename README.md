@@ -31,7 +31,7 @@ Take a look at the section titled [autostart]. At the moment, it reads like this
 panel = wfrespawn wf-panel-pi
 background = wfrespawn pcmanfm --desktop --profile LXDE-pi
 xdg-autostart = lxsession-xdg-autostart
-chromium = chromium-browser "https://www.google.it" --kiosk --noerrdialogs --disable-infobars --no-first-run --ozone-platform=wayland --enable-features=OverlayScrollbar --start-maximized
+chromium = chromium-browser "𝐡𝐭𝐭𝐩𝐬://𝐰𝐰𝐰.𝐠𝐨𝐨𝐠𝐥𝐞.𝐢𝐭"(INSERT HERE YOUR LINK) --kiosk --noerrdialogs --disable-infobars --no-first-run --ozone-platform=wayland --enable-features=OverlayScrollbar --start-maximized
 switchtab = bash ~/switchtab.sh
 screensaver = false
 dpms = false
