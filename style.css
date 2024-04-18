@@ -100,7 +100,7 @@ body {
     width: auto;
     height: auto;
     max-width: 320px;
-    margin: 10px 0 0 0; /* Modifica del margine per posizionare il logo più in alto */
+    margin: 10px 0 0 0; 
     padding: 5px;
     margin-left: 40px;
     margin-top: 30px;
@@ -221,8 +221,8 @@ body {
     }
 
     .logo {
-        margin: 10px 0 0 0; /* Modifica del margine per posizionare il logo più in alto */
-        max-width: 100%; /* Assicurati che il logo si adatti correttamente al suo contenitore */
+        margin: 10px 0 0 0; 
+        max-width: 100%; 
     }
     .aff {
         margin-left: 0px;
