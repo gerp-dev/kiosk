@@ -1,32 +1,28 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>il Tacco di Bacco - i prossimi eventi</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="qrcode.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css"<?php rand()?>>
-    <title>il Tacco di Bacco - i prossimi eventi</title>
 </head>
 <body>
 <div class="mycontainer container-padding" style="background-color: #01a3e1;">
     <div>
         <img src="logo-bianco.png" class="logo">
-        <span class="aff">/ Martina Franca e dintorni</span>
+        <span class="aff"> / Martina Franca e dintorni</span>
     </div>
     <div>
         <h2 id="orario" class="oraa"></h2>
     </div>
 </div>
 
-
-
 <div id="eventContainer" class="txt"></div>
-<div>
-        <h2 id="orario" class="oraa"></h2>
-    </div>
 
 <script>
+    // Funzione per visualizzare l'orario
     function orario(){
         var oggi = new Date();
         var giorno = oggi.getDay();
@@ -104,13 +100,16 @@
         if(secondi<10) secondi = "0" + secondi;
 
         document.getElementById("orario").innerHTML = "Oggi è " + giorno + " " + numerog + " " + mese + " " + anno + "   " + ora + ":" + minuti + ":" + secondi;
-    };
+    }
+    // per aggiornare l'orario ogni secondo
     setInterval(orario, 1000);
+    // Richiamo della funzione orario per visualizzare l'orario all'avvio
     orario();
 </script>
 
 <script>
     $(document).ready(function() {
+        // Codice PHP per leggere gli eventi dal file JSON
         var events = <?php
             $json = file_get_contents("https://iltaccodibacco.it/martinafranca/events.json");
             $events = json_decode($json, true);
@@ -118,17 +117,23 @@
 
             if ($events !== null && !empty($events)) {
                 foreach ($events as $evento) {
-                    // Taglia la descrizione esattamente ai primi 600 caratteri
-                    $descrizione = mb_substr($evento['des_evento'], 0, 600);
-                    
-                   // Trova l'ultima posizione di un punto all'interno della sottostringa
-                   // $ultimo_punto = mb_strrpos($descrizione, '.');
+                    $descrizione = $evento['des_evento'];
 
-                   // if ($ultimo_punto !== false) {
-                        // Se c'è un punto nella sottostringa, taglia la descrizione fino a quel punto
-                     //   $descrizione = mb_substr($descrizione, 0, $ultimo_punto + 1);
-                    //}
-                    
+                    if(strlen($descrizione)>600)
+                    {
+                        // Taglia la descrizione esattamente ai primi 700 caratteri
+                        $descrizione = mb_substr($evento['des_evento'], 0, 700);
+                        // Trova l'ultima posizione di un punto all'interno della sottostringa
+                        $ultimo_punto = mb_strrpos($descrizione, '.');
+
+                        if ($ultimo_punto !== false) {
+                            // Se c'è un punto nella sottostringa, taglia la descrizione fino a quel punto
+                            $descrizione = mb_substr($descrizione, 0, $ultimo_punto + 1);
+                        }
+                        // Aggiungiamo due punti poiché uno è già compreso nella descrizione (l'ultimo punto individuato non viene rimosso)
+                        $descrizione .= "..";
+                    }
+                    // Riempimento del vettore con lettura dai campi del file JSON 
                     $eventContainer[] = array(
                         'description' => $descrizione,
                         'luogo' => $evento['comune'],
@@ -147,21 +152,22 @@
         var currentIndex = 0;
         var eventContainer = $("#eventContainer");
 
+        // Funzione per visualizzare i dettagli dell'evento corrente
         function displayEvent(index) {
             var event = events[index];
             var html =
-                    "<div class='event-details'>" +
-                        "<div>" +
-                            "<p class='small small_L'>" + event.locale + ", " + event.luogo + "</p>" +
-                            "<p class='small_D'>" + event.data + "</p>" +
-                            "<p class='tit'>" + event.title + "</p>" +
-                        "</div>" +
-                        "<div>" + 
-                                "<img src='" + event.image + "' alt='Immagine evento' class='imd'>" +
-                                "<p class='big description'>" + event.description + "..." +"</p>" +
-                        "</div>" +
-                        "<div class='qr-code'></div>" +
-                    "</div>";
+                "<div class='event-details'>" +
+                    "<div>" +
+                        "<p class='small small_L'>" + event.locale + ", " + event.luogo + "</p>" +
+                        "<p class='small_D'>" + event.data + "</p>" +
+                        "<p class='tit'>" + event.title + "</p>" +
+                    "</div>" +
+                    "<div>" + 
+                        "<img src='" + event.image + "' alt='Immagine evento' class='imd'>" +
+                        "<p class='big description'>" + event.description +"</p>" +
+                    "</div>" +
+                    "<div class='qr-code'></div>" +
+                "</div>";
             eventContainer.html(html);
 
             // Genera il codice QR per il link dell'evento
@@ -178,14 +184,14 @@
         // Esegui la funzione displayEvent per visualizzare il primo evento all'avvio
         displayEvent(currentIndex);
 
-        // Imposta l'intervallo per cambiare evento ogni 10 secondi
-        
+        // Imposta l'intervallo per cambiare evento ogni 10 secondi (10000 millisecondi)
         setInterval(function() {
             currentIndex = (currentIndex + 1) % events.length;
             displayEvent(currentIndex);
         }, 10000);
     });
 </script>
-<p class='coll'> Realizzato da Cognita S.r.l in collaborazione con I.I.S.S E.Majorana Martina Franca(TA)</p>
+<p class='coll'> Realizzato da Cognita S.r.l in collaborazione con I.I.S.S E.Majorana Martina Franca (TA)</p> 
 </body>
-</html>
+</html> 
+
