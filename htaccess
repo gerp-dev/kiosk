@@ -1,0 +1,3 @@
+RewriteEngine On
+
+RewriteRule ^([^/]+)/?$ index.php?word=$1 [L,QSA]
