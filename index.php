@@ -1,3 +1,5 @@
+﻿
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -9,10 +11,14 @@
     <link rel="stylesheet" href="style.css"<?php rand()?>>
 </head>
 <body>
+    
+   
+    
+
 <div class="mycontainer container-padding" style="background-color: #01a3e1;">
     <div>
         <img src="logo-bianco.png" class="logo">
-        <span class="aff"> / Martina Franca e dintorni</span>
+        <span class="aff" id = 'locazione'> </span>
     </div>
     <div>
         <h2 id="orario" class="oraa"></h2>
@@ -20,6 +26,23 @@
 </div>
 
 <div id="eventContainer" class="txt"></div>
+
+
+
+<script>   
+    <?php 
+    
+        $parola = $_GET['word'];
+        if (isset($_GET['word'])) {
+            $parola = $_GET['word'];
+        }
+
+    ?> 
+
+        let parametro = "<?php echo $parola; ?>";    
+        document.querySelector('#locazione').textContent = "/"+ parametro + " e dintorni";
+        
+</script>
 
 <script>
     // Funzione per visualizzare l'orario
@@ -119,6 +142,16 @@
                 foreach ($events as $evento) {
                     $descrizione = $evento['des_evento'];
 
+
+                    //ciclo per l'inizializzazione della tipologia di evento
+                    $type = array();
+                    foreach ($evento['vett_attributi'] as $key => $value) {
+                        $value = " ".$value;
+                        $type[] = $value;
+                    
+                    }
+
+
                     if(strlen($descrizione)>600)
                     {
                         // Taglia la descrizione esattamente ai primi 700 caratteri
@@ -142,6 +175,8 @@
                         'title' => $evento['nome_evento'],
                         'image' => $evento['img'],
                         'url' => $evento['url_evento'],
+                        'tipologia' => $type,
+                        'ingresso' => $evento['des_costo']
                     );
                 }
             }
@@ -155,18 +190,44 @@
         // Funzione per visualizzare i dettagli dell'evento corrente
         function displayEvent(index) {
             var event = events[index];
+
+            let single;
+            if(event.locale== null){
+                single = event.luogo;
+            }else{
+                single = event.locale + ", "+ event.luogo;
+            }
+            
             var html =
+                "<div id='cerchio'></div>"+
                 "<div class='event-details'>" +
                     "<div>" +
-                        "<p class='small small_L'>" + event.locale + ", " + event.luogo + "</p>" +
-                        "<p class='small_D'>" + event.data + "</p>" +
+
+                        "<p class='small small_L'>" + single + "</p>" +
+
+                        "<div style='display: flex; justify-content: space-between;'>"+
+
+                            "<p class='small_D' style= 'text-align:left;'>" + event.data + "</p>" +
+                            "<p class='small_type' style= 'margin-right: 2%;'>" + event.tipologia + "</p>" +
+
+                        "</div>"+
+                        
                         "<p class='tit'>" + event.title + "</p>" +
+
                     "</div>" +
-                    "<div>" + 
+                    "<div style='display:  flex;' >" + 
+
                         "<img src='" + event.image + "' alt='Immagine evento' class='imd'>" +
-                        "<p class='big description'>" + event.description +"</p>" +
+                        "<p class='big description'>" + event.description +"<br> <br>"+"<b>" + event.ingresso +"<b>" +"</p>" +
+
                     "</div>" +
-                    "<div class='qr-code'></div>" +
+
+                    "<div id='basso'>"+
+                        "<p class='coll' > Realizzato da Cognita S.r.l in collaborazione con I.I.S.S E.Majorana Martina Franca (TA)</p>"+
+                        "<div class='qr-code'></div>" +
+
+                    "</div>"+
+
                 "</div>";
             eventContainer.html(html);
 
@@ -185,13 +246,35 @@
         displayEvent(currentIndex);
 
         // Imposta l'intervallo per cambiare evento ogni 10 secondi (10000 millisecondi)
-        setInterval(function() {
-            currentIndex = (currentIndex + 1) % events.length;
-            displayEvent(currentIndex);
+        setInterval(()=> {
+
+            const Div = document.getElementById('cerchio');
+            const Basso = document.getElementById('basso');
+
+            Div.classList.add('overlay');
+            Basso.style.display = 'none';
+
+            setTimeout(() => {
+    
+                Basso.style.display = 'block'
+                Div.classList.remove('overlay');
+    
+                currentIndex = (currentIndex + 1) % events.length;
+   
+                displayEvent(currentIndex);
+    
+
+            }, 2100);
+
+
+
         }, 10000);
+
+        setInterval(() => {
+            window.location.reload()
+        }, 600000);
     });
 </script>
-<p class='coll'> Realizzato da Cognita S.r.l in collaborazione con I.I.S.S E.Majorana Martina Franca (TA)</p> 
+
 </body>
 </html> 
-
