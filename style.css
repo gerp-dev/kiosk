@@ -8,29 +8,35 @@ body {
     overflow: auto;
     padding: 0;
     margin: 0;
+    overflow-x: hidden;
 }
 
 .mycontainer {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin: -10px;
+    align-items: center;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 .mycontainer div {
-    width: 48%;
+    width: 50%;
     margin-top: 0px;
     height: auto;
 }
 
 .tit {
     color: #015dc7;
-    font-size: 3.8em;
+    font-size: 4.5em;
     font-family: 'PT Sans Narrow', sans-serif;
     font-weight: bold;
-    margin-left: 38px;
+    /* margin-left: 22px; */
     margin-bottom: 0;
     margin-top: 12px;
+    line-height: 1.0;
+    margin-left: 15px;
+    margin-right: 15px;
 }
 
 .small_L {
@@ -46,21 +52,19 @@ body {
     text-indent: 20px;
     font-weight: bold;
     font-family: Georgia;
-    font-size: 2.5em;
-    margin-left: 20px;
+    font-size: 3.0em;
     margin-bottom: 0;
     margin-top: 12px;
 }
 
 .small_type{
-    float: right;
+    float: left;
     color: #92908f;
     text-indent: 20px;
     font-weight: bold;
     font-family: 'PT Sans Narrow', Arial, Arial Black, Helvetica, sans-serif;
     text-transform: uppercase;
-    font-size: 2.5em;
-    margin-left: 20px;
+    font-size: 2.em;
     margin-bottom: 0;
     margin-top: 12px;
 
@@ -84,18 +88,22 @@ body {
 }
 
 .oraa {
-    color: white;
-    font-size: 2em;
+    color: rgb(255, 255, 255);
+    font-size: 1.8em;
     font-family: 'PT Sans Narrow', sans-serif;
-    margin: 20px;
-    margin-left: 250px;
-    margin-top: 30px;
+    margin: -10px;
+    margin-left: 80px;
     padding: 5px;
-    position: relative;
+    position: absolute;
 }
 
 .txt {
     text-align: left;
+    justify-content: right;
+    flex: 1 1 auto;
+    margin: 0;
+    overflow: hidden; /* Evita lo scroll */
+    white-space: pre-wrap;
 }
 
 .backg {
@@ -117,14 +125,15 @@ body {
     max-width: 320px;
     margin: 10px 0 0 0; 
     padding: 5px;
-    margin-left: 40px;
-    margin-top: 30px;
+    margin-left: 20px;
+    margin-top: 20px;
 }
 
 
 .event-details {
     float: left;
-    padding-left: 20px;
+    /* padding-left: 20px;
+    padding-right: 20px; */
 }
 
 .event-image {
@@ -138,18 +147,16 @@ body {
 }
 
 .imd {
-    float: left;
-    max-width: 20%;
-    max-height: 10%;
-    margin-left: 38px;
-    margin-top: 20px;
+    max-width: 120%;
+    max-height: 120%;
 }
 
 .description {
     float: left;
-    max-width: 55%;
-    margin-left: 50px;
-    font-size: 2.3em;
+    width: 100%;
+    margin-left: 40px;
+    margin-right: 40px;
+    font-size: 2.6em;
     line-height: 1.3;
     text-align: justify;
     font-family: Georgia;
@@ -161,23 +168,29 @@ body {
     font-size: 1.4em;
     font-weight: bold;
     font-family: Garamond;
-    bottom: 15px;
     left: 0;
-    margin: 0;
+    margin-top: 50px;
     margin-left: 60px;
 }
 
 
 
 
-@media screen and (max-width: 768px) {
+@media screen and (width: 1200px) {
     .mycontainer {
         display: flex;
         flex-direction: column;
         align-items: center; 
         background-color: #01a3e1;
-        padding: 20px;
     }
+
+    /* @media screen and (max-width: 768px) {
+        .container {
+            padding: 0 20px;
+            background-color: #01a3e1;
+        }
+    } */
+    
 
     .mycontainer > div {
         flex-grow: 1;
@@ -189,21 +202,12 @@ body {
     }
 
     .imd {
-        max-width: 60%;
-        max-height: 50%;
+        width: 50%; 
+        height: 50%;
         box-sizing: border-box;
+        
     }
 
-    .description {
-        max-width: 100%;
-        text-align: left;
-        margin-top: 20px;
-        margin-right: 15px;
-        margin-left: 15px;
-        font-size: 1.2em;
-        line-height: 1.4;
-        box-sizing: border-box;
-    }
 
     .qr-code {
         position: relative;
@@ -211,7 +215,7 @@ body {
         margin-left: 30px;
     }
 
-  
+
     .coll {
         position: relative;
         font-size: 1.4em;
@@ -224,28 +228,29 @@ body {
     }
 
     .tit {
-        font-size: 1.6em;
+        font-size: 1.2em;
         margin-left: 5px;
         margin-top: 10px;
+        margin-bottom: 50px;
     }
 
     .small_L,.small_type,
     .small_D {
-        font-size: 1.4em;
-        margin-left: -13px;
+        font-size: 1.0em;
+        align-items: center;
     }
 
     .oraa {
         font-size: 1em;
         margin-top: 10px; 
-        margin:0;
+        margin:0px;
         margin-left:10px;
         position: relative;
     }
 
     .logo {
         margin: 10px 0 0 0; 
-        max-width: 100%; 
+        max-width: 20%; 
     }
     .aff {
         margin-left: 0px;
@@ -262,43 +267,48 @@ body {
     }
 
     .event-image img {
-        width: 100%;
-        height: auto;
+        width: 50%;
+        height: 50%;
     }
 
-  
+
 }
 
-
-
 .overlay {
-
-    position: absolute;
-    background-color: #000000;
-    border-radius: 50%;
-    animation: espandi 2s forwards, dissolvi 2s 2s forwards;
+    position: fixed;
+    background-color: #000;
+    width: 100%;
+    height: 0;
+    top: 0;
+    left: 0;
+    animation: espandi 2.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    z-index: 9999;
+    overflow: hidden;
 }
 
 @keyframes espandi {
     0% {
-        width: 0;
         height: 0;
-        top: 50%;
-        left: 50%;
     }
     100% {
-        width: 200vw;
-        height: 200vw;
-        top: -50vw;
-        left: -50vw;
+        height: 100%;
     }
 }
 
 @keyframes dissolvi {
     0% {
-      opacity: 1;
+        opacity: 1;
     }
     100% {
         opacity: 0;
     }
+}
+
+
+.background {
+    width: 100%;
+    height: 100%;
+    /* height: auto;
+    overflow: hidden;
+    display: grid; */
 }
